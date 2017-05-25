@@ -39,7 +39,7 @@ module.exports = Backbone.View.extend({
 
   onStoryChange: function(evt, storyCollectionName) {
     if (storyCollectionName !== this.currentStory) {
-      this.setNavHighlighting("." + storyCollectionName);
+      this.setNavHighlighting("#subheader-nav-" + storyCollectionName + " a");
       this.currentStory = storyCollectionName;
     }
   },

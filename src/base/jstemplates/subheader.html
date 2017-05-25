@@ -10,7 +10,7 @@
 	<ul>
 		{{#each storyConfig}}
 			<li id="subheader-nav-{{@key}}">
-				<a class="subheader-nav-item{{#if @first}} selected{{/if}}" href="/{{this.start_at}}" rel="internal">{{this.header}}</a>
+				<a class="subheader-nav-item" href="/{{this.start_at}}" rel="internal">{{this.header}}</a>
 			</li>
 		{{/each}}
 	</ul>
