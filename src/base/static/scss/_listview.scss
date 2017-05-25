@@ -11,7 +11,7 @@
     background: $button-color-white;
     position: absolute;
     padding: 1.75em 1em;
-    top: 4em;
+    top: $header-height-fullscreen;
 
     // height of #site-header (on large screens)
     right: 0;
@@ -23,6 +23,12 @@
     // Restrict the width of images embedded with the rich text editor
     .place-value img {
         max-width: 25%;
+    }
+}
+
+.site-subheader-active {
+    #list-container {
+        top: $header-height-fullscreen + $subheader-height-fullscreen;
     }
 }
 

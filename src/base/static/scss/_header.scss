@@ -171,3 +171,55 @@ a.logout-btn {
     text-decoration: none;
     text-transform: uppercase;
 }
+
+/* subheader bar */
+.site-subheader-active {
+    #site-subheader {
+        line-height: 2.7em;
+        position: relative;
+        text-transform: uppercase;
+        font-size: 0.8em;
+        z-index: 99;
+        padding-left: 1em;
+        height: $subheader-height-fullscreen;
+        background-color: #EEE;
+        box-shadow: 0 0.125em 0 rgba(0, 0, 0, 0.2);
+
+        li {
+            float: left;
+            padding-left: 15px;
+            padding-right: 15px;
+
+            a {
+                border-radius: 0;
+                text-decoration: none;
+                color: #BBB;
+
+                &:hover {
+                    color: #999;
+                }
+
+                &.selected {
+                    color: #000;
+
+                    &:before {
+                        font-family: FontAwesome;
+                        content: "\f058";
+                        padding-right: 5px;
+                    }
+                }     
+            }
+        }
+
+        .subheader-graphic {
+            float: left;
+            width: 45px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .subheader-msg {
+            float: left;
+        }
+    }
+}

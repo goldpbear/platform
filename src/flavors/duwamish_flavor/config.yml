@@ -9,6 +9,9 @@ app:
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
+  subheader_msg: _(Hey there! Explore a few stories)
+  subheader_graphic_url: /static/css/images/stylized-arrow.png
+
   # When the map loads, existing places will be loaded in chunks. By default,
   # the size of the chunks will be a reasonable default dictated by the API
   # server. If you would like to override the chunk size, use this setting:
@@ -2010,7 +2013,7 @@ pages:
 story:
   community-priorities:
     tagline: _(Next featured site)
-    header: _(Explore community restoration projects along the Duwamish)
+    header: _(Restoration)
     description: _(Duwamish River communities are pursuing a variety of restoration projects. Take a look!)
     image_url: /static/css/images/community-priorities.png
     # every story item will default to the zoom level and visible
@@ -2035,7 +2038,7 @@ story:
 
   pollution:
     tagline: _(Next featured site)
-    header: _(Take a tour of polluted sites along the Duwamish)
+    header: _(Pollution)
     description: _(The Duwamish River is one of the most polluted waterways in the country. Explore the sites in this map story to learn about the environmental challenges facing the Duwamish.)
     image_url: /static/css/images/pollution.jpg
     default_zoom: 13
@@ -2063,7 +2066,7 @@ story:
   history:
     tagline: _(Next featured site)
     header: _(Duwamish history)
-    description: _(Explore the history of the Duwamish River Valley)
+    description: _(Duwamish history)
     image_url: /static/css/images/history.jpg
     default_zoom: 13
     default_visible_layers:
@@ -2099,6 +2102,7 @@ story:
       - url: rain-wise-home
       - url: rainwise-home-rose-st
       - url: carleton-grocery-gsi
+    start_at: dirtcorps
 
 notifications:
   on_new_place: true

@@ -135,6 +135,7 @@ Shareabouts.Util = Util;
         landmarks: this.landmarks,
         datasetConfigs: configArrays,
         config: options.config,
+        appConfig: options.appConfig,
         defaultPlaceTypeName: options.defaultPlaceTypeName,
         placeTypes: options.placeTypes,
         cluster: options.cluster,

@@ -114,6 +114,8 @@ var SidebarStoryCollectionView = Backbone.Marionette.CollectionView.extend({
       self.render();
       $("#right-sidebar-container #right-sidebar-spinner").remove();
 
+      $(document).trigger("mapseed:story-content-loaded", self.storyCollections);
+
       // On route changes, check if we've loaded a place or landmark that's
       // part of a story. If so, load the story elements for that story in the
       // sidebar.
@@ -122,10 +124,13 @@ var SidebarStoryCollectionView = Backbone.Marionette.CollectionView.extend({
         if (collectionName) {
           self.collection = self.storyCollections[collectionName];
           self.render();
+          $(document).trigger("mapseed:story-change", collectionName);
+        } else {
+          $(document).trigger("mapseed:off-story-change");          
         }
       }); 
     })
-    .fail(function(a) {
+    .fail(function() {
 
       // If one or more of the Promises passed to $.when fail, then the
       // master deferred object will fail, and the sidebar will hang. In this

@@ -13,6 +13,7 @@
   var PlaceDetailView = require('mapseed-place-detail-view');
   var PlaceFormView = require('mapseed-place-form-view');
   var RightSidebarView = require('mapseed-right-sidebar-view');
+  var SiteSubheaderView = require('mapseed-site-subheader-view');
 
   // Models
   var PlaceModel = require('../models/place-model.js');
@@ -262,6 +263,17 @@
             placeCollections: self.places,
             placeConfig: this.options.placeConfig
           }).render();
+      }
+
+      // Subheader bar disabled by default. If a story object is defined in the
+      // config, assume we want to show a subheader with story nav options in it.
+      if (this.options.storyConfig) {
+        $("body").addClass("site-subheader-active");
+        this.siteSubheaderView = new SiteSubheaderView({
+          el: "#site-subheader",
+          storyConfig: this.options.storyConfig,
+          appConfig: this.options.appConfig
+        });
       }
 
       // Cache panel elements that we use a lot

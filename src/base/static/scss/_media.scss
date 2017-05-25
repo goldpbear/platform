@@ -339,9 +339,7 @@
     // Map
     #map-container {
         position: absolute;
-        top: 4em;
-
-        // height of #site-header
+        top: $header-height-fullscreen;
         right: 0;
         bottom: 0;
         left: 0;
@@ -407,6 +405,29 @@
         }
     }
 
+    /* Overrides for flavors with subheaders */
+    .site-subheader-active {
+
+        #map-container {
+            top: $header-height-fullscreen + $subheader-height-fullscreen;
+        }
+
+        #right-sidebar-container {
+            height: calc(100% - #{$header-height-fullscreen} - #{$subheader-height-fullscreen} - #{$footer-height-fullscreen});
+        }
+
+        #main-btns-container {
+
+            &.pos-top-left {
+                top: $header-height-fullscreen + $subheader-height-fullscreen + 10px;
+            }
+
+            &.pos-top-right {
+                top: $header-height-fullscreen + $subheader-height-fullscreen + 10px;
+            }
+        }
+    }
+
     .right-sidebar-visible #main-btns-container {
         &.pos-top-right {
             right: calc(#{$sidebar-width} + 10px);
@@ -428,7 +449,7 @@
         color: $default-font-color;
         padding: 0;
         position: absolute;
-        top: 4em;
+        top: $header-height-fullscreen + $subheader-height-fullscreen;
 
         bottom: 0;
 
