@@ -179,6 +179,7 @@ a.logout-btn {
         position: relative;
         text-transform: uppercase;
         font-size: 0.8em;
+        overflow: hidden;
         z-index: 99;
         padding-left: 1em;
         height: $subheader-height-fullscreen;
