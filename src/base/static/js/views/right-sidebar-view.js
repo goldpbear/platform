@@ -114,7 +114,7 @@ var SidebarStoryCollectionView = Backbone.Marionette.CollectionView.extend({
       self.render();
       $("#right-sidebar-container #right-sidebar-spinner").remove();
 
-      $(document).trigger("mapseed:story-content-loaded", self.storyCollections);
+      $(document).trigger("mapseed:story-content-loaded", initialCollectionName);
 
       // On route changes, check if we've loaded a place or landmark that's
       // part of a story. If so, load the story elements for that story in the

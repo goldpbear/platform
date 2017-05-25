@@ -14,7 +14,7 @@ module.exports = Backbone.View.extend({
     $(document).on("mapseed:off-story-change", this.onOffStoryChange);
   },
 
-  render: function() {
+  render: function(evt, initialCollectionName) {
     var data = {
       storyConfig: this.options.storyConfig,
       subheaderMsg: this.options.appConfig.subheader_msg,
@@ -22,6 +22,11 @@ module.exports = Backbone.View.extend({
     };
 
     this.$el.html(Handlebars.templates["subheader"](data));
+
+    if (initialCollectionName) {
+      this.setNavHighlighting("#subheader-nav-" + initialCollectionName + " a");
+      this.currentStory = initialCollectionName;
+    }
   },
 
   onSubheaderNavCilck: function(evt) {
