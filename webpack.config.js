@@ -7,6 +7,8 @@ var yaml = require('js-yaml');
 var Gettext = require("node-gettext");
 var gettextParser = require("gettext-parser");
 var walk = require("object-walk");
+var Handlebars = require("handlebars");
+var wax = require("wax-on");
 
 var flavorJsFiles = glob.sync("./src/flavors/" + process.env.FLAVOR + "/static/js/*.js");
 var entryPoints = ["babel-polyfill", "./src/base/static/js/routes.js", "./src/base/static/js/handlebars-helpers.js"].concat(flavorJsFiles);
@@ -40,8 +42,35 @@ var config = yaml.safeLoad(fs.readFileSync(flavorConfigPath));
 const MESSAGES_DIR = 'LC_MESSAGES';
 const PO_FILE_NAME = 'django.po';
 const GETTEXT_REGEX = /^_\(/;
+const STATIC_URL = "/static/";
+const MAPBOX_TOKEN = process.env.MAPBOX_TOKEN;
+
+// TODO: add this to .env
+const CLICKY_ANALYTICS_ID = process.env.CLICKY_ANALYTICS_ID;
+
+// TODO: add this to .env
+const MAPQUEST_KEY = process.env.MAPQUEST_KEY;
+
+// TODO: add this to .env
+const GOOGLE_ANALYTICS_ID = process.env.GOOGLE_ANALYTICS_ID;
+
 var gt = new Gettext();
 var localeDir = path.resolve(flavorBasePath, 'locale');
+
+Handlebars.registerHelper("serialize", function(json) {
+  if (!json) return false;
+  return JSON.stringify(json);
+});
+
+wax.on(Handlebars);
+
+// TODO: register _ gettext Handlebars helper
+// TODO: replace Django template filters with Handlebars helpers
+
+wax.setLayoutPath(path.resolve(flavorBasePath, "templates"));
+var source = fs.readFileSync(path.resolve(flavorBasePath, "templates/index.html"), "utf8");
+var template = Handlebars.compile(source);
+
 fs.readdirSync(localeDir).forEach((langDir) => {
 
   // Quick and dirty config clone:
@@ -66,8 +95,22 @@ fs.readdirSync(localeDir).forEach((langDir) => {
     }
   });
 
-  var filename = path.resolve(flavorBasePath, "config-" + langDir + ".json");
-  fs.writeFileSync(filename, JSON.stringify(thisConfig));
+  // Build the index.html file for this language, inheriting from base.html and
+  // injecting the localized config.
+  var result = template({
+    config: thisConfig,
+    settings: {
+      MAPBOX_TOKEN: MAPBOX_TOKEN,
+      CLICKY_ANALYTICS_ID: CLICKY_ANALYTICS_ID,
+      MAPQUEST_KEY: MAPBOX_TOKEN,
+      GOOGLE_ANALYTICS_ID: GOOGLE_ANALYTICS_ID,
+      STATIC_URL: STATIC_URL,
+      user_token_json: 
+    }
+  });
+
+  var filename = path.resolve(flavorBasePath, "templates", "index-" + langDir + ".html");
+  fs.writeFileSync(filename, result);
 });
 
 
