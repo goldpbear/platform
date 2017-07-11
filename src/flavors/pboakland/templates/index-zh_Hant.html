@@ -16,7 +16,7 @@
 
   <!-- Social Media meta tags and such -->
   <a href="/">
-  <img id="site-title-image" src="css/images/pblogo_large.png" alt="參與奧克蘭預算編制"></img>
+  <img id="site-title-image" src="/static/css/images/pblogo_large.png" alt="參與奧克蘭預算編制"></img>
 </a>
 
 
@@ -35,7 +35,7 @@
   <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="dist/bundle.css?ver=0.7.5.4"></link>
+  <link rel="stylesheet" href="/static/dist/bundle.css?ver=0.7.5.4"></link>
 
   <!-- Flavor's Custom Stylesheet -->
 
@@ -81,16 +81,16 @@
     <noscript>
       <div class="noscript">
       <h3>
-      </h3>
+[object Object]      </h3>
       <p>
-      </p>
+[object Object]      </p>
       </div>
     </noscript>
 
 
     <div id="map-container">
 
-      <div id="ajax-error-msg"></div>
+      <div id="ajax-error-msg">[object Object]</div>
       <div id="map-progress" class="progress-bar"><strong>Loading Data&hellip;</strong><span class="current-progress"></span></div>
       <div id="map"></div>
       <div id="spotlight-mask"></div>
@@ -102,9 +102,9 @@
     </div>
 
     <div id="content"><!-- .place or .page -->
-      <a href="#" class="close-btn">&#10005;<span></span></a>
-      <a href="#" class="maximize-btn"><span></span></a>
-      <a href="#" class="minimize-btn"><span></span></a>
+      <a href="#" class="close-btn">&#10005;<span>[object Object]</span></a>
+      <a href="#" class="maximize-btn"><span>[object Object]</span></a>
+      <a href="#" class="minimize-btn"><span>[object Object]</span></a>
       <article></article>
     </div><!-- end #content -->
 
@@ -130,14 +130,14 @@
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="libs/jquery-1.10.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
+  <script>window.jQuery || document.write('<script src="/static/libs/jquery-1.10.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
 
   <script src="//cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
 
 
   <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.2/mapbox-gl.css" rel='stylesheet' />
   <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.2/mapbox-gl.js"></script>
-  <script src="libs/leaflet-mapbox-gl.js"></script>
+  <script src="/static/libs/leaflet-mapbox-gl.js"></script>
 
   
 
@@ -160,18 +160,18 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.js"></script>
   
   <!-- These are obscure or customized, self-hosted. -->
-  <script src="libs/binaryajax.js"></script>
-  <script src="libs/exif.js"></script>
-  <script src="libs/swag.min.js"></script>
-  <script src="libs/leaflet.sidebar.js"></script>
-  <script src="libs/leaflet-wmts.js"></script>
-  <script src="libs/leaflet.argo.js"></script>
+  <script src="/static/libs/binaryajax.js"></script>
+  <script src="/static/libs/exif.js"></script>
+  <script src="/static/libs/swag.min.js"></script>
+  <script src="/static/libs/leaflet.sidebar.js"></script>
+  <script src="/static/libs/leaflet-wmts.js"></script>
+  <script src="/static/libs/leaflet.argo.js"></script>
 
   <script>
-    moment.locale('');
+    moment.locale('en_US');
     $(function() {
       // Check official browser support.
-      var userAgent = ;
+      var userAgent = {"browser":{"name":"some browser name"}};
       if (!Shareabouts.Util.isSupported(userAgent)) {
         var userAgentData = userAgent,
             $unsupportedEl = $('.unsupported-overlay'),
@@ -195,13 +195,13 @@
     var Shareabouts = Shareabouts || {};
     
     Shareabouts.bootstrapped = {
-      staticUrl: '',
+      staticUrl: '/static/',
       mapQuestKey: 'pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g',
       mapboxToken: 'pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g'
     };
     function bootstrapCurrentUser(data) {
       // Handle the case when we are logged into the admin panel
-      if (data && !data.avatar_url) data.avatar_url = "css/images/user-50.png"
+      if (data && !data.avatar_url) data.avatar_url = "/static/css/images/user-50.png"
       if (data && !data.name) data.name = data.username
       Shareabouts.bootstrapped.currentUser = data;
     }
@@ -212,9 +212,11 @@
     }
   </script>
 
-  <script src="dist/bundle.js?ver=0.7.5.4"></script>
+  <script src="/static/dist/bundle.js?ver=0.7.5.4"></script>
   <script src="users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
   <script src="utils/session-key?format=jsonp&callback=setApiSessionCookie"></script>
+
+  
 
 
   <script type="text/javascript">
@@ -225,9 +227,9 @@
       userToken: (
         S.bootstrapped.currentUser ?
         'user:' + S.bootstrapped.currentUser.id :
-        ), // NOTE: lost |safe filter
+        ""), // NOTE: lost |safe filter
       app:        {"title":"參與奧克蘭預算編制","name":"參與奧克蘭預算編制","meta_description":"歡迎！參與奧克蘭預算編制是一項創新的民主流程，為奧克蘭城市委員會第2區的居民提供決定他們所在地區如何花費城市資金的權力。現在請幫我們投票吧！","meta_author":"HaxGeo.com"},
-      flavor:     false,
+      //flavor:     false, // NOTE: this seems superfluous
       place:      {"administrators":["HadassahDamien","phreethought","goldpbear"],"adding_supported":false,"add_button_label":"分享您的看法！","show_list_button_label":"查看完整列表","show_map_button_label":"顯示地圖","title":"告訴我們更多...","action_text":"建議","anonymous_name":"某人","submit_button_label":"提交！","location_item_name":"location","place_detail":[{"category":"community","includeOnForm":true,"name":"location_type","dataset":"pboakland","icon_url":"/static/css/images/markers/marker-youth.png","value":"community","label":"社區專案和服務","fields":[{"name":"title","type":"text","prompt":"您的意見標題","display_prompt":"標題：","placeholder":" ","optional":false},{"name":"idea-what","type":"textarea","prompt":"告訴我們更多關於您對改善鄰居關係的看法？：","display_prompt":" ","placeholder":"看法必須針對社區內中低收入社區能受益的專案、服務或基礎設施改善。","optional":true},{"name":"idea-why","type":"textarea","prompt":"為什麼這很重要？該服務是社區裡需要的嗎？","display_prompt":" ","placeholder":" ","optional":true}]},{"category":"parks","includeOnForm":true,"name":"location_type","dataset":"pboakland","icon_url":"/static/css/images/markers/marker-parks.png","value":"parks","label":"公園和娛樂設施","fields":[{"name":"title","type":"text","prompt":"您的意見標題","display_prompt":"標題：","placeholder":" ","optional":false},{"name":"idea-what","type":"textarea","prompt":"告訴我們更多關於您對改善鄰居關係的看法？：","display_prompt":" ","placeholder":"看法必須針對社區內中低收入社區能受益的專案、服務或基礎設施改善。","optional":true},{"name":"idea-why","type":"textarea","prompt":"為什麼這很重要？該服務是社區裡需要的嗎？","display_prompt":" ","placeholder":" ","optional":true}]},{"category":"streets","includeOnForm":true,"name":"location_type","dataset":"pboakland","icon_url":"/static/css/images/markers/marker-streets.png","value":"streets","label":"街道和人行道","fields":[{"name":"title","type":"text","prompt":"您的意見標題","display_prompt":"標題：","placeholder":" ","optional":false},{"name":"idea-what","type":"textarea","prompt":"告訴我們更多關於您對改善鄰居關係的看法？：","display_prompt":" ","placeholder":"看法必須針對社區內中低收入社區能受益的專案、服務或基礎設施改善。","optional":true},{"name":"idea-why","type":"textarea","prompt":"為什麼這很重要？該服務是社區裡需要的嗎？","display_prompt":" ","placeholder":" ","optional":true}]},{"category":"housing","includeOnForm":true,"name":"location_type","dataset":"pboakland","icon_url":"/static/css/images/markers/marker-housing.png","value":"housing","label":"住房和工作","fields":[{"name":"title","type":"text","prompt":"您的意見標題","display_prompt":"標題：","placeholder":" ","optional":false},{"name":"idea-what","type":"textarea","prompt":"告訴我們更多關於您對改善鄰居關係的看法？：","display_prompt":" ","placeholder":"看法必須針對社區內中低收入社區能受益的專案、服務或基礎設施改善。","optional":true},{"name":"idea-why","type":"textarea","prompt":"為什麼這很重要？該服務是社區裡需要的嗎？","display_prompt":" ","placeholder":" ","optional":true}]}],"common_form_elements":[{"name":"venue","type":"dropdown","optional":true,"admin_only":true,"admin_msg":"(For administrator use only)","prompt":"您的姓名","display_prompt":"提交！","content":[{"label":"Asian Cultural Center","value":"asian_cultural_center"},{"label":"Williams Chapel","value":"williams_chapel"},{"label":"Beebe Memorial Cathedral","value":"beebe_memorial_cathedral"},{"label":"Mobile Assembly at Bella Vista Elementary School","value":"bella_vista"},{"label":"其他","value":"other"}]},{"name":"my_image","type":"file","prompt":"圖片","inputfile_label":"添加圖片","optional":true,"attrs":[{"key":"accept","value":"image/*"}]},{"name":"demographics-header","type":"section_header","horizontal_rule":false,"content":"人口統計學資訊"},{"name":"demographics-description","type":"section_description","content":"該資訊保密，確保我們為各種最能代表社區需要的人群服務。"},{"name":"private-age","autocomplete":true,"type":"text","prompt":"您的年齡：","display_prompt":"Project-Id-Version: PACKAGE VERSION\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2017-03-30 02:17-0400\nPO-Revision-Date: 2017-03-30 05:43+0000\nLast-Translator: Language-Team: Chinese Traditional (https://www.transifex.com/mapseed/teams/58669/zh-Hant/)\nLanguage-Team: Traditional Chinese\nLanguage: zh-Hant\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=1; plural=0\nX-Loco-Source-Locale: en_US\nX-Loco-Parser: loco_parse_po\nX-Generator: Loco - https://localise.biz/\n","placeholder":"您的年齡不會出現在地圖上","optional":true},{"name":"private-ethnicity","autocomplete":true,"type":"radio_big_buttons","annotation":"您的名族不會出現在地圖上","prompt":"您的民族：","display_prompt":"民族：","content":[{"label":"美國印第安人/阿拉斯加原住民","value":"indian-alaskan"},{"label":"亞洲人","value":"asian"},{"label":"黑人或非裔美國人","value":"black"},{"label":"西班牙裔或拉丁裔美國人","value":"hispanic"},{"label":"夏威夷原住民和太平洋島居民","value":"hawaiian-pacific"},{"label":"白人","value":"white"},{"label":"其他","value":"other"}],"optional":true},{"name":"private-income","autocomplete":true,"type":"dropdown","prompt":"您的收入：","annotation":"您的收入不會出現在地圖上","content":[{"label":"$10,000以下","value":"under-10k"},{"label":"$10,000 - $14,999","value":"10k-15k"},{"label":"$15,000 - $24,999","value":"15k-25k"},{"label":"$25,000 - $34,999","value":"25k-35k"},{"label":"$35,000 - $49,000","value":"35k-49k"},{"label":"$50,000 - $74,999","value":"50k-75k"},{"label":"$75,000 - $99,000","value":"75k-99k"},{"label":"$100,000 - $149,000","value":"100k-149k"},{"label":"$150,000或更多","value":"150k-or-more"}],"optional":true},{"name":"private-volunteer","autocomplete":true,"type":"binary_toggle","prompt":"我想做志願者","display_prompt":"我想做志願者","content":[{"label":"是","value":"yes"},{"label":"否","value":"no"}],"optional":true},{"name":"submitter_name","autocomplete":true,"type":"text","prompt":"您的姓名","placeholder":"姓名","optional":true},{"name":"private-submitter_email","autocomplete":true,"type":"text","prompt":"您的電子郵件","placeholder":"收到關於您的看法的電子郵件更新","optional":true,"sticky":true},{"name":"private-phone","autocomplete":true,"type":"text","prompt":"您的電話號碼：","display_prompt":"Project-Id-Version: PACKAGE VERSION\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2017-03-30 02:17-0400\nPO-Revision-Date: 2017-03-30 05:43+0000\nLast-Translator: Language-Team: Chinese Traditional (https://www.transifex.com/mapseed/teams/58669/zh-Hant/)\nLanguage-Team: Traditional Chinese\nLanguage: zh-Hant\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=1; plural=0\nX-Loco-Source-Locale: en_US\nX-Loco-Parser: loco_parse_po\nX-Generator: Loco - https://localise.biz/\n","placeholder":"您的電話號碼不會出現在地圖上","optional":true},{"type":"submit","label":"提交！"}]},
       placeTypes: {"markerZoomStyle":[{"condition":"this.layer.focused === true","icon":{"iconSize":[75,90],"iconAnchor":[38,90]}},{"condition":"this.map.zoom < 14","icon":{"iconSize":[15,18],"iconAnchor":[7.5,18]}},{"condition":"this.map.zoom < 16","icon":{"iconSize":[30,36],"iconAnchor":[15,36]}},{"condition":"this.map.zoom >= 16","icon":{"iconSize":[50,60],"iconAnchor":[25,60]}}],"community":{"label":"對老年人服務的看法","zoomType":"markerZoomStyle","rules":[{"condition":"true","icon":{"iconUrl":"/static/css/images/markers/marker-youth.png"}}]},"parks":{"label":"對公園和娛樂設施的看法","zoomType":"markerZoomStyle","rules":[{"condition":"true","icon":{"iconUrl":"/static/css/images/markers/marker-parks.png"}}]},"streets":{"label":"對街道和人行道的看法","zoomType":"markerZoomStyle","rules":[{"condition":"true","icon":{"iconUrl":"/static/css/images/markers/marker-streets.png"}}]},"housing":{"label":"住房和工作","zoomType":"markerZoomStyle","rules":[{"condition":"true","icon":{"iconUrl":"/static/css/images/markers/marker-housing.png"}}]}},
       cluster:    false,
@@ -248,7 +250,7 @@
         activity: [],
         defaultPlaceTypeName: S.Config.defaultPlaceTypeName,
         userToken: S.Config.userToken,
-        config: S.Config.flavor,
+        appConfig: S.Config.app,
         placeConfig: S.Config.place,
         placeTypes: S.Config.placeTypes,
         cluster: S.Config.cluster,

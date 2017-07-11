@@ -9,6 +9,7 @@ var gettextParser = require("gettext-parser");
 var walk = require("object-walk");
 var Handlebars = require("handlebars");
 var wax = require("wax-on");
+var execSync = require("child_process").execSync;
 
 var flavorJsFiles = glob.sync("./src/flavors/" + process.env.FLAVOR + "/static/js/*.js");
 var entryPoints = ["babel-polyfill", "./src/base/static/js/routes.js", "./src/base/static/js/handlebars-helpers.js"].concat(flavorJsFiles);
@@ -39,20 +40,20 @@ var config = yaml.safeLoad(fs.readFileSync(flavorConfigPath));
 // TODO: A build option that skips localization, so we don't have to do all the
 // localization work on every dev build. We could also have a special dev build
 // option that _does_ localize, for times when we want to test the localizations.
-const MESSAGES_DIR = 'LC_MESSAGES';
 const PO_FILE_NAME = 'django.po';
 const GETTEXT_REGEX = /^_\(/;
-const STATIC_URL = "/static/";
+const BASE_STATIC_URL = "/static/";
+const FLAVOR_STATIC_URL = 
 const MAPBOX_TOKEN = process.env.MAPBOX_TOKEN;
 
 // TODO: add this to .env
-const CLICKY_ANALYTICS_ID = process.env.CLICKY_ANALYTICS_ID;
+const CLICKY_ANALYTICS_ID = process.env.CLICKY_ANALYTICS_ID || "";
 
 // TODO: add this to .env
-const MAPQUEST_KEY = process.env.MAPQUEST_KEY;
+const MAPQUEST_KEY = process.env.MAPQUEST_KEY || "";
 
 // TODO: add this to .env
-const GOOGLE_ANALYTICS_ID = process.env.GOOGLE_ANALYTICS_ID;
+const GOOGLE_ANALYTICS_ID = process.env.GOOGLE_ANALYTICS_ID || "";
 
 var gt = new Gettext();
 var localeDir = path.resolve(flavorBasePath, 'locale');
@@ -62,9 +63,12 @@ Handlebars.registerHelper("serialize", function(json) {
   return JSON.stringify(json);
 });
 
+Handlebars.registerHelper("_", function(msg) {
+  return gt.gettext(msg);
+});
+
 wax.on(Handlebars);
 
-// TODO: register _ gettext Handlebars helper
 // TODO: replace Django template filters with Handlebars helpers
 
 wax.setLayoutPath(path.resolve(flavorBasePath, "templates"));
@@ -75,14 +79,15 @@ fs.readdirSync(localeDir).forEach((langDir) => {
 
   // Quick and dirty config clone:
   var thisConfig =  JSON.parse(JSON.stringify(config));
-  var input = fs.readFileSync(path.resolve(localeDir, langDir, MESSAGES_DIR, PO_FILE_NAME));
+
+  var input = fs.readFileSync(path.resolve(localeDir, langDir, "LC_MESSAGES", PO_FILE_NAME));
   var po = gettextParser.po.parse(input);
   gt.addTranslations(langDir, "messages", po);
   gt.setTextDomain("messages");
   gt.setLocale(langDir);
 
-  // TODO: Let's try to only walk the config structure once, performing gettext
-  // replacements for all languages during that walk.
+  // TODO: Walk the config structure only once, performing gettext replacements for 
+  // all languages during that walk?
   walk(thisConfig, (val, prop, obj) => {
     if (typeof val === "string") {
       if (GETTEXT_REGEX.test(val)) {
@@ -95,7 +100,19 @@ fs.readdirSync(localeDir).forEach((langDir) => {
     }
   });
 
-  // Build the index.html file for this language, inheriting from base.html and
+  // Precompile and localize Handlebars templates
+  var baseJSTemplatesPath = path.resolve(__dirname, "src/base/jstemplates");
+  var flavorJSTemplatesPath = path.resolve(flavorBasePath, "jstemplates");
+  var handlebarsExec = path.resolve(__dirname, "node_modules/handlebars/bin/handlebars");
+  var compiledTemplatesOutputPath = path.resolve(__dirname, "src/base/jstemplates/templates.js");
+
+  // Precompile Handlebars templates
+  execSync(handlebarsExec + " -e 'html' -m " + baseJSTemplatesPath + " -f " + compiledTemplatesOutputPath);
+
+
+  // TODO: pages templates
+
+  // Build the index.html file for this language, inheriting from base.hbs and
   // injecting the localized config.
   var result = template({
     config: thisConfig,
@@ -104,17 +121,30 @@ fs.readdirSync(localeDir).forEach((langDir) => {
       CLICKY_ANALYTICS_ID: CLICKY_ANALYTICS_ID,
       MAPQUEST_KEY: MAPBOX_TOKEN,
       GOOGLE_ANALYTICS_ID: GOOGLE_ANALYTICS_ID,
-      STATIC_URL: STATIC_URL,
-      user_token_json: 
+    },
+    BASE_STATIC_URL: BASE_STATIC_URL,
+
+    // TODO: handle language code
+    LANGUAGE_CODE: "en_US",
+
+    // TODO: what are we going to do about session management?
+    user_token_json: "",
+
+    // TODO: user agent identification needs to be moved client-side
+    user_agent_json: {
+      browser: {
+        name: "some browser name"
+      }
     }
   });
 
+
+  // Write out final index.html file
   var filename = path.resolve(flavorBasePath, "templates", "index-" + langDir + ".html");
   fs.writeFileSync(filename, result);
 });
 
 
-// TODO: Precompile and localize Handlebars templates
 
 
 module.exports = {
