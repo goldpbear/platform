@@ -1,6 +1,9 @@
-var LayerInfoWindowView = require("./layer-info-window-view.js");
+import React from "react";
+import ReactDOM from "react-dom";
+import LayerInfoWindowView from "./layer-info-window-view";
+
 const INFO_WINDOW_LEFT_OFFSET_ADJUST = 36;
-const INFO_WINDOW_TOP_OFFSET_ADJUST = -67;
+const INFO_WINDOW_TOP_OFFSET_ADJUST = -57;
 const INFO_WINDOW_SCROLL_HIDE_THRESHOLD = 25;
 
 module.exports = Backbone.View.extend({
@@ -18,6 +21,12 @@ module.exports = Backbone.View.extend({
 
     this.hasScrolled = false;
     this.initialScrollPoint;
+    this.infoWindow = {
+      container: document.getElementById("layer-info-window-container"),
+      isVisible: false,
+      lastTarget: null
+    }
+
     this.options.sidebarView.$("#gis-layers-pane")
       .off("scroll")
       .on("scroll", this.onLayersPaneScroll.bind(this));
@@ -56,7 +65,7 @@ module.exports = Backbone.View.extend({
       this.hasScrolled = true;
       this.initialScrollPoint = evt.currentTarget.scrollTop;
     } else if (Math.abs(this.initialScrollPoint - evt.currentTarget.scrollTop) > INFO_WINDOW_SCROLL_HIDE_THRESHOLD) {
-      this.layerInfoWindowView && this.layerInfoWindowView.hide();
+      this.setInfowWindowVisibility(false);
     }
   },
 
@@ -144,22 +153,43 @@ module.exports = Backbone.View.extend({
     }
   },
 
+  setInfowWindowVisibility: function(isVisible) {
+    this.infoWindow.isVisible = isVisible;
+
+    (this.infoWindow.isVisible)
+      ? this.infoWindow.container.classList.remove("is-hidden-fadeout")
+      : this.infoWindow.container.classList.add("is-hidden-fadeout");
+  },
+
   onClickInfoIcon: function(evt) {
-    let $currentTarget = $(evt.currentTarget);
     this.hasScrolled = false;
 
-    if (!this.layerInfoWindowView) {
-      this.layerInfoWindowView = new LayerInfoWindowView({
-        el: "#layer-info-window-container",
-        sidebar: this.options.sidebar
-      });
-    }
+    (this.infoWindow.lastTarget === evt.currentTarget.dataset.layerId)
+      ? this.setInfowWindowVisibility(!this.infoWindow.isVisible)
+      : this.setInfowWindowVisibility(true);
 
-    this.layerInfoWindowView.setState({
-      title: $currentTarget.data("info-title"),
-      body: $currentTarget.data("info-content"),
-      left: $currentTarget.parent().offset().left + evt.currentTarget.offsetLeft + INFO_WINDOW_LEFT_OFFSET_ADJUST,
-      top: $currentTarget.parent().offset().top + evt.currentTarget.offsetTop + INFO_WINDOW_TOP_OFFSET_ADJUST
-    });
+    this.infoWindow.lastTarget = evt.currentTarget.dataset.layerId;
+
+    if (this.infoWindow.isVisible) {
+      ReactDOM.render(
+        <LayerInfoWindowView title={evt.currentTarget.dataset.infoTitle} 
+                             body={evt.currentTarget.dataset.infoContent} 
+                             setInfowWindowVisibility={this.setInfowWindowVisibility.bind(this)}
+                             sidebar={this.options.sidebar} />,
+        this.infoWindow.container
+      );
+
+      this.infoWindow.container.style.top = 
+        (
+          evt.currentTarget.getBoundingClientRect().top + 
+          INFO_WINDOW_TOP_OFFSET_ADJUST - 
+          (this.infoWindow.container.offsetHeight/2)
+        ) + "px";
+      this.infoWindow.container.style.left = 
+        (
+          evt.currentTarget.getBoundingClientRect().left + 
+          INFO_WINDOW_LEFT_OFFSET_ADJUST
+        ) + "px";
+    }
   }
 });
