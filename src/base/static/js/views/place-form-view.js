@@ -1,3 +1,5 @@
+import accessibleAutocomplete from 'accessible-autocomplete';
+
 var Util = require("../utils.js");
 var Gatekeeper = require("../../libs/gatekeeper.js");
 var GeocodeAddressPlaceView = require("mapseed-geocode-address-place-view");
@@ -132,6 +134,23 @@ module.exports = Backbone.View.extend({
         }
       });
     }
+
+    accessibleAutocomplete.enhanceSelectElement({
+      selectElement: document.getElementById("dropdown-autocomplete-container"),
+      displayMenu: "overlay",
+      showAllValues: true,
+      required: document.getElementById("dropdown-autocomplete-container").required,
+      placeholder: "Type or select a school name...",
+      onConfirm: function(confirmed) {
+        if (confirmed) {
+          let idx = this.originalOptions.indexOf(confirmed);
+          document.getElementById(this.id).dataset.originalValue = this.originalValues[idx];
+        }
+      }
+    });
+
+    // TODO: remove required on underlying element
+    // TODO: handle multiple autocompletes on one form
   },
 
   setUrlTitlePrefix: function() {
@@ -582,6 +601,8 @@ module.exports = Backbone.View.extend({
     }
 
     if (attrs) {
+      console.log("attrs", attrs);
+
       collection.add({
         location_type: this.formState.selectedCategoryConfig.category,
         datasetSlug: _.find(this.options.mapConfig.layers, function(layer) {

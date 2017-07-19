@@ -1126,7 +1126,8 @@ place:
       placeholder: _(Address)
       optional: true
     - name: school-name
-      type: dropdown
+      optional: false
+      type: dropdown-autocomplete
       prompt: _(Your school:)
       content:
         - label: _(School A)

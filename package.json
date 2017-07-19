@@ -32,6 +32,7 @@
     "prettier": "prettier --write --trailing-comma all \"{src,blah}/**/*.{js,jsx}\""
   },
   "dependencies": {
+    "accessible-autocomplete": "^1.4.1",
     "babel-polyfill": "^6.23.0",
     "babel-runtime": "^6.23.0",
     "compass-importer": "^0.4.1",
