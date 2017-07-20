@@ -1,4 +1,4 @@
-import accessibleAutocomplete from 'accessible-autocomplete';
+import accessibleAutocomplete from '../../libs/accessible-autocomplete.min.js';
 
 var Util = require("../utils.js");
 var Gatekeeper = require("../../libs/gatekeeper.js");
