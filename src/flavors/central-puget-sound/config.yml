@@ -1130,12 +1130,72 @@ place:
       type: dropdown-autocomplete
       prompt: _(Your school:)
       content:
-        - label: _(School A)
-          value: school-a
-        - label: _(School B)
-          value: school-b
-        - label: _(School C)
-          value: school-c
+        - label: _(Hazelwood Elementary School)
+          value: hazelwood-elementary-school
+        - label: _(Evergreen Heights Elementary School)
+          value: evergreen-heights-elementary-school
+        - label: _(Pioneer Elementary School)
+          value: pioneer-elementary-school
+        - label: _(Lake View Elementary School)
+          value: lake-view-elementary-school
+        - label: _(Gildo Rey Elementary School)
+          value: gildo-rey-elementary-school
+        - label: _(Rainier Middle School)
+          value: rainier-middle-school
+        - label: _(Mt Baker Middle School)
+          value: mt-baker-middle-school
+        - label: _(Terminal Park Elementary School)
+          value: terminal-park-elementary-school
+        - label: _(Alpac Elementary School)
+          value: alpac-elementary-school
+        - label: _(Lea Hill Elementary School)
+          value: lea-hill-elementary-school
+        - label: _(Ilalko Elementary School)
+          value: ilalko-elementary-school
+        - label: _(Auburn Mountainview High School)
+          value: auburn-mountainview-high-school
+        - label: _(Dick Scobee Elementary School)
+          value: dick-scobee-elementary-school
+        - label: _(Chinook Elementary School)
+          value: chinook-elementary-school
+        - label: _(Auburn Riverside High School)
+          value: auburn-riverside-high-school
+        - label: _(Washington Elementary School)
+          value: washington-elementary-school
+        - label: _(Auburn Senior High School)
+          value: auburn-senior-high-school
+        - label: _(Olympic Middle School)
+          value: olympic-middle-school
+        - label: _(Cascade Middle School)
+          value: cascade-middle-school
+        - label: _(Muckleshoot Tribal School)
+          value: muckleshoot-tribal-school
+        - label: _(Green River Montessori)
+          value: green-river-montessori
+        - label: _(Rcs-Kent View Elementary School)
+          value: rcs-kent-view-elementary-school
+        - label: _(Special Ed School)
+          value: special-ed-school
+        - label: _(Holy Family Catholic School)
+          value: holy-family-catholic-school
+        - label: _(Promisedland Christian Learning Center)
+          value: promisedland-christian-learning-center
+        - label: _(Valley Christian School)
+          value: valley-christian-school
+        - label: _(Auburn Gateway School)
+          value: auburn-gateway-school
+        - label: _(Buena Vista Sda School)
+          value: buena-vista-sda-school
+        - label: _(Auburn Adventist Academy)
+          value: auburn-adventist-academy
+        - label: _(Green River Community College)
+          value: green-river-community-college
+        - label: _(Thomas Academy)
+          value: thomas-academy
+        - label: _(Green River Montessori School)
+          value: green-river-montessori-school
+        - label: _(West Auburn Senior High School)
+          value: west-auburn-senior-high-school
     - name: submitter_name
       type: text
       prompt: _(Your name)
